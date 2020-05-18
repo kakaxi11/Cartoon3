@@ -1,48 +1,50 @@
+日志管理
 <template>
   <div>
-      <p>充值配置</p>
+      <p>日志列表</p>
         <div class="MessageHeader">
-    <el-button type="primary" size="small" plain>添加</el-button>
-   
-   <el-button type="primary" size="small" >刷新</el-button>
+          
+     <el-button type="warning" size="small" >批量删除</el-button>
+            
+   <el-button type="primary" size="small"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
   
   <el-table
     :data="tableData"
     border
-    style="width: 97%">
+    >
     <el-table-column
       prop="date"    
       label="日期"
-      width="200">
+      >
     </el-table-column>
     <el-table-column
       prop="name"
       label="总新增用户"
-      width="280">
+      >
     </el-table-column>
     <el-table-column
       prop="address"
       label="头条"
-      width="280"
+     
       >
     </el-table-column>
      <el-table-column
       prop="state"
       label="oppo"
-      width="280"
+ 
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="APP应用"
-      width="280"
+      
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="其他（未知渠道）"
-      width="280"
+    
       >
     </el-table-column>
   </el-table>
@@ -62,18 +64,6 @@
 
 <script>
 export default {
-    data(){
-      return{
-        paylist:[],
-        queryInfo:{
-          size:1
-        }
-      }
-    },
-  created(){
-    this.$http.get('admin/cartoon/recharge/info',)
-
-  }
 
 }
 </script>

@@ -2,11 +2,11 @@
     <div>
        <div class="MessageHeader">
     <div>
-         <el-button size="small" type="primary" plain>选择时间</el-button>
-    <el-button  size="small" type="primary" plain>查询</el-button>
+         <el-button size="small" type="primary" >选择时间</el-button>
+    <el-button  size="small" type="primary" ><i class="iconfont icon-sousuo"></i>查询</el-button>
     </div>
    
-    <el-button type="primary" size="small" class="refresh">刷新</el-button>
+    <el-button type="primary" size="small" class="refresh"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
     
     <el-card class="card-box">
@@ -30,39 +30,36 @@
  <el-table
     :data="tableData"
     border
-    style="width: 97%">
+    >
     <el-table-column
       prop="date"    
       label="日期"
-      width="200">
+     >
     </el-table-column>
     <el-table-column
       prop="name"
       label="总新增用户"
-      width="280">
+   >
     </el-table-column>
     <el-table-column
       prop="address"
       label="头条"
-      width="280"
+
       >
     </el-table-column>
      <el-table-column
       prop="state"
       label="oppo"
-      width="280"
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="APP应用"
-      width="280"
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="其他（未知渠道）"
-      width="280"
       >
     </el-table-column>
   </el-table>
@@ -216,6 +213,10 @@ export default {
 .MessageHeader{
   display:flex;
   justify-content:space-between;
+  div{
+    display:flex;
+    align-items:center;
+  }
  .refresh{
  }
   padding:0 10px 10px 0px;

@@ -43,6 +43,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Dropdown,
+  DatePicker,
 
 
 } from 'element-ui'
@@ -92,6 +93,7 @@ Vue.use(Button)
   .use(DropdownMenu)
   .use(DropdownItem)
   .use(Dropdown)
+  .use(DatePicker)
   
 
 Vue.prototype.$message = Message

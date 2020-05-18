@@ -1,51 +1,48 @@
 <template>
   <div>
-      <p>会员等级列表</p>
+      <p>举报用户列表</p>
         <div class="MessageHeader">
-            <div>
-<el-button type="primary" size="small" plain>显示全部</el-button>
-    <el-button type="primary" size="small" plain>添加</el-button>
-     <el-button type="warning" size="small" >批量删除</el-button>
-            </div>
-   <el-button type="primary" size="small">刷新</el-button>
+    
+   
+   <el-button type="primary" size="small"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
   
   <el-table
-    :data="tableData"
+    :data="ReportList"
     border
-    style="width: 97%">
+   >
     <el-table-column
-      prop="date"    
+      prop="username"    
       label="日期"
-      width="200">
+     >
     </el-table-column>
     <el-table-column
       prop="name"
       label="总新增用户"
-      width="280">
+   >
     </el-table-column>
     <el-table-column
       prop="address"
       label="头条"
-      width="280"
+     
       >
     </el-table-column>
      <el-table-column
       prop="state"
       label="oppo"
-      width="280"
+    
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="APP应用"
-      width="280"
+   
       >
     </el-table-column>
     <el-table-column
       prop="state"
       label="其他（未知渠道）"
-      width="280"
+     
       >
     </el-table-column>
   </el-table>
@@ -65,6 +62,21 @@
 
 <script>
 export default {
+  data(){
+    return{
+      queryInfo:{
+        page:1,
+        size:5
+      },
+      ReportList:[]
+    }
+  },
+  created(){
+      this.$http.get('admin/report/get',{params:this.queryInfo}).then(res=>{
+       this.ReportList = res.data.data.list
+      })
+
+    }
 
 }
 </script>
@@ -74,8 +86,9 @@ p{
     font-size:13px;
 }
 .MessageHeader{
+  
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-end;
  .refresh{
    margin-left:73%;
  }

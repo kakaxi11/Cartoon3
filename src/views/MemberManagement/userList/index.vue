@@ -8,7 +8,6 @@
     <el-table-column
       prop="date"    
       label="uid"
-      min-width="50"
      >
     </el-table-column>
     <el-table-column
@@ -29,7 +28,7 @@
     <el-table-column
       prop="username"
       label="昵称"
-      min-width="97"
+    
       >
     </el-table-column>
     <el-table-column
@@ -85,7 +84,6 @@
     <el-table-column
       prop="createTime"
       label="注册时间"
-       min-width="140"
       >
       <template slot-scope="scope">
         {{scope.row.createTime | dateFormat}}
@@ -95,7 +93,6 @@
     <el-table-column
       prop="lastLoginTime"
       label="最后登录时间"
-      min-width="140"
       >
        <template slot-scope="scope">
         {{scope.row.lastLoginTime | dateFormat}}

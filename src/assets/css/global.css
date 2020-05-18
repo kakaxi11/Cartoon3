@@ -48,3 +48,13 @@ body,
 .el-table .cell {
   white-space: nowrap;
 }
+.el-button{
+  height:32px !important;
+  line-height:11px;
+}
+
+.el-table td,.el-table th{
+    text-align: center;
+    padding:5px 0 0 0;
+  height:30px;
+}

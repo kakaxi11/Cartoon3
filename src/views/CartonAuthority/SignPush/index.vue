@@ -21,7 +21,9 @@
     </el-option>
   </el-select>
 
-   <el-button  size="small" type="primary" >搜索</el-button> 
+   <el-button  size="small" type="primary" >
+<i class="iconfont icon-sousuo"></i>
+     搜索</el-button> 
 
    <el-button  size="small"  type="primary" >显示全部</el-button>
    <el-button  size="small"  type="warning" >批量删除</el-button>

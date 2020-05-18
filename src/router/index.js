@@ -19,43 +19,43 @@ const Rights = () =>
     import ( /* webpackChunkName: "users_rights-roles" */ '@/views/SystemSetting/power')
     // import Roles from '@/components/power/Roles'
 const Report = () =>
-    import ( /* webpackChunkName: "users_rights-roles" */ '@/views/Report/index.vue')
+    import ( /* webpackChunkName: "users_rights-roles" */ '@/views/MemberManagement/Report/index.vue')
 
 const paySession = () =>
     import ( /* webpackChunkName: "users_rights-roles" */ '@/views/SystemSetting/paySession')
 
 // import Cate from '@/components/goods/Cate'
 const paySetting = () =>
-    import ( /* webpackChunkName: "cate_params" */ '@/views/paySetting/index.vue')
+    import ( /* webpackChunkName: "cate_params" */ '@/views/MemberManagement/paySetting/index.vue')
     // import Params from '@/components/goods/Params'
 const userLevel = () =>
-    import ( /* webpackChunkName: "cate_params" */ '@/views/userLevel/index.vue')
+    import ( /* webpackChunkName: "cate_params" */ '@/views/MemberManagement/userLevel/index.vue')
 
 // import List from '@/components/goods/List'
 const List = () =>
     import ( /* webpackChunkName: "list_add" */ '@/views/SystemSetting/goods')
     // import Add from '@/components/goods/Add'
 const userList = () =>
-    import ( /* webpackChunkName: "list_add" */ '@/views/userList/index.vue')
+    import ( /* webpackChunkName: "list_add" */ '@/views/MemberManagement/userList/index.vue')
 
 // import Order from '@/components/order/Order'
 const userTotal = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/userTotal/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/MemberManagement/userTotal/index.vue')
     // import Report from '@/components/report/Report'
 const fastApp = () =>
     import ( /* webpackChunkName: "order_report" */ '@/views/SystemSetting/fastApp/index.vue')
 const suggestion = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/suggestion/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/MemberManagement/suggestion/index.vue')
 const PaymentStatistics = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/PaymentStatistics/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/FinancialStatistics/PaymentStatistics/index.vue')
 const cartoonPay = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/cartoonPay/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/FinancialStatistics/cartoonPay/index.vue')
 const Advertisement = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/Advertisement/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/FinancialStatistics/Advertisement/index.vue')
 const PayList = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/PayList/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/FinancialStatistics/PayList/index.vue')
 const AuthorityList = () =>
-    import ( /* webpackChunkName: "order_report" */ '@/views/AuthorityList/index.vue')
+    import ( /* webpackChunkName: "order_report" */ '@/views/Permissions/AuthorityList/index.vue')
 const echars = () =>
     import ( /* webpackChunkName: "order_report" */ '@/views//Permissions/Charts/LineMarker.vue')
 const AuthoUserList = () =>
@@ -84,6 +84,8 @@ const SignPush = () =>
     import ( /* webpackChunkName: "order_report" */ '@/views/CartonAuthority/SignPush/index.vue')
 const SignSetting = () =>
     import ( /* webpackChunkName: "order_report" */ '@/views/CartonAuthority/SignSetting/index.vue')
+const LogManagement = () =>
+    import ( /* webpackChunkName: "order_report" */ '@/views/LogManagement/index.vue')
 
 
 
@@ -129,7 +131,8 @@ const router = new VueRouter({
                     { path: '/PopularizationPlan', component: PopularizationPlan },
                     { path: '/SignPush', component: SignPush },
                     { path: '/SignSetting', component: SignSetting },
-                    { path: '/HomeOne', component: HomeOne }
+                    { path: '/HomeOne', component: HomeOne },
+                    {path:'/LogManagement',component:LogManagement}
 
 
                 ]
@@ -137,16 +140,16 @@ const router = new VueRouter({
         ]
     })
     // 挂载路由导航守卫
-    // router.beforeEach((to, from, next) => {
-    //   //to表示要访问的路径
-    //   //from表示从哪个路径跳转而来
-    //   //next()是一个函数表示放行
-    //   //next() 放行next('/login') 强制跳转
-    //   if (to.path === '/login') return next()
-    //   //如果不是登录页面,则先获取token,若没有则跳回login页面。
-    //   const tokenStr = window.sessionStorage.getItem('token')
-    //   if (!tokenStr) return next('/login')
-    //   next()
-    // })
+    router.beforeEach((to, from, next) => {
+      //to表示要访问的路径
+      //from表示从哪个路径跳转而来
+      //next()是一个函数表示放行
+      //next() 放行next('/login') 强制跳转
+      if (to.path === '/login') return next()
+      //如果不是登录页面,则先获取token,若没有则跳回login页面。
+      const tokenStr = window.sessionStorage.getItem('token')
+      if (!tokenStr) return next('/login')
+      next()
+    })
 
 export default router

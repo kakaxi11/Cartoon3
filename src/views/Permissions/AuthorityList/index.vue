@@ -1,13 +1,15 @@
 <template>
   <div>
-     <div class="MessageHeader">
+    <p>管理员列表</p>
+     <div class="MessageHeader"><div> 
            全局搜索
-          <el-input placeholder="用户名|昵称" size="small">
+     <el-input placeholder="用户名|昵称" size="small">
           </el-input>        
-    <el-button  size="small" type="primary" >搜索</el-button>
-   <el-button  size="small" type="primary" >添加</el-button> 
+    <el-button  size="small" type="primary" ><i class="iconfont icon-sousuo"></i>搜索</el-button>
+   <el-button  size="small" type="primary" ><i class="iconfont icon-tianjia"></i>添加</el-button> 
    <el-button  size="small"  type="primary" >显示全部</el-button>
-   <el-button  size="small"  type="warning" >批量删除</el-button>
+   <el-button  size="small"  type="warning" >批量删除</el-button></div>
+   <el-button size="small" type="primary"><i class="iconfont icon-tianjia"></i>刷新</el-button>
   </div>
 
 
@@ -74,6 +76,12 @@ export default {
 .MessageHeader{
   display:flex;
   align-items: center;
+  justify-content:space-between;
+  div{
+    display:flex;
+  align-items: center;
+
+  }
  .refresh{
    margin-left:73%;
  }

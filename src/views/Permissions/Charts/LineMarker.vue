@@ -1,15 +1,16 @@
 <template>
 <div>
+  <p>用户组列表</p>
   <div class="MessageHeader">
-           全局搜索
-          <el-input placeholder="用户名|昵称" size="small">
+           <div>    <el-input placeholder="用户名|昵称" size="small">
           </el-input>        
-    <el-button  size="small" type="primary" >搜索</el-button>
-   <el-button  size="small" type="primary" >添加</el-button> 
+    <el-button  size="small" type="primary" ><i class="iconfont icon-sousuo"></i>搜索</el-button>
+   <el-button  size="small" type="primary" ><i class="iconfont icon-tianjia"></i>添加</el-button> 
    <el-button  size="small"  type="primary" >显示全部</el-button>
-   <el-button  size="small"  type="warning" >批量删除</el-button>
+   <el-button  size="small"  type="warning" >批量删除</el-button></div>
+   <el-button size="small" type="primary"><i class="iconfont icon-shuaxin"></i>刷新</el-button>   
   </div>
-
+  
   <div :id="id" :class="className" :style="{height:height,width:width}" />
 </div>
   <!-- echars插件 -->
@@ -244,7 +245,11 @@ export default {
 <style lang="less" scoped>
 .MessageHeader{
   display:flex;
-  justify-content:flex-start;
+  justify-content:space-between;
+  div{
+    display:flex;
+    align-items: center;
+  }
     .el-input{
         width:200px;
     }
@@ -252,7 +257,7 @@ export default {
  padding:0 10px 10px 0px;
   border-bottom: 2px solid #ccc;
   .el-button{
-      margin-left:30px;
+      margin-left:15px;
   }
   margin-bottom:30px;
 }

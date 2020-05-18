@@ -24,7 +24,7 @@ Vue.prototype.$echarts = echarts
 
 import axios from 'axios'
 //配置请求根路径
-// axios.defaults.baseURL = 'http://192.168.1.8:8060/'
+axios.defaults.baseURL = 'http://192.168.1.8:8060/'
 //再request拦截器中，展示进度条 NProgress.start()
 // axios.interceptors.request.use(config => {
 //         NProgress.start()

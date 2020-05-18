@@ -1,12 +1,14 @@
 <template>
   <div>
+      <p> 权限列表  </p>   
      <div class="MessageHeader">
-           权限列表
-              
-
-   <el-button  size="small" type="primary" >添加</el-button> 
+       <div>
+        
+<el-button  size="small" type="primary" ><i class="iconfont icon-tianjia"></i>添加</el-button> 
    <el-button  size="small"  type="primary" >显示全部</el-button>
-   <el-button  size="small"  type="warning" >批量删除</el-button>
+   <el-button  size="small"  type="warning" >批量删除</el-button></div>
+   <el-button size="small" type="primary">刷新</el-button>
+    
   </div>
 
 
@@ -73,6 +75,11 @@ export default {
 .MessageHeader{
   display:flex;
   align-items: center;
+  justify-content:space-between;
+  div{
+    display:flex;
+    align-items:center;
+  }
  .refresh{
    margin-left:73%;
  }

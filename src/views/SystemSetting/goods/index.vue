@@ -3,7 +3,7 @@
   <div class="MessageHeader">
     第三方登陆设置
 
-    <el-button type="primary" size="small" class="refresh">刷新</el-button>
+    <el-button type="primary" size="small" class="refresh"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
   <div class="Wechat">
     微信登录

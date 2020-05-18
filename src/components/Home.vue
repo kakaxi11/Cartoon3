@@ -59,12 +59,7 @@ export default {
 'icon-caiwu',
 'icon-rizhiguanli'
  ],
-
-
-
-
-
-        menulist:[
+    menulist:[
       {
         name:'系统设置',
         id:0,
@@ -229,6 +224,12 @@ export default {
       ,{
         name:'日志管理',
         id:5,
+        children:[
+          {
+          aname:'管理员日志',
+          path:'LogManagement'
+          }
+        ]
       }
     ],
      

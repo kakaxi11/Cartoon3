@@ -4,7 +4,7 @@
   <div class="MessageHeader">
     华为云短信
     <el-button type="warning" size="small">查看错误码</el-button>
-    <el-button type="primary" size="small" class="refresh">刷新</el-button>
+    <el-button type="primary" size="small" class="refresh"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
   <el-card class="box-card">
       <el-form :label-position="labelPosition" label-width="80px" >

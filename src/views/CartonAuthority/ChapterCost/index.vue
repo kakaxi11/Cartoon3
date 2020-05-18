@@ -2,9 +2,11 @@
   <div>
       <p>章节费用配置</p>
      <div class="MessageHeader">  
-   <el-button  size="small" type="primary" >添加</el-button> 
+   <el-button  size="small" type="primary" >
+<i class="iconfont icon-tianjia"></i>添加</el-button> 
 
-   <el-button  size="small"  type="primary" >刷新</el-button>
+   <el-button  size="small"  type="primary" >
+<i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
  
     <el-card>
