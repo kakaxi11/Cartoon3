@@ -28,7 +28,7 @@
   <div id="myChart" :style="{width: '1200px', height: '450px'}"></div>
    
  <el-table
-    :data="tableData"
+    :data="payList"
     border
     >
     <el-table-column
@@ -49,30 +49,35 @@
     </el-table-column>
      <el-table-column
       prop="state"
+      label="广点通"
+      >
+    </el-table-column>
+    <el-table-column
+      prop="state"
       label="oppo"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="appNumber"
       label="APP应用"
       >
     </el-table-column>
-    <el-table-column
+     <el-table-column
       prop="state"
-      label="其他（未知渠道）"
+      label="其他(未知渠道)"
       >
     </el-table-column>
   </el-table>
-   <el-pagination
+  <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage4"
-      :page-sizes="[5, 10, 15, 20]"
-      :page-size="5"
+      :page-sizes="[5,10, 20, 30]"
+       :page-size="this.queryInfo.size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="20">
+      :total="total">
     </el-pagination>
-
+ 
 
     </div>
 </template>
@@ -148,7 +153,16 @@ export default {
               regCapital:1907
           }
       ],
-      userTotal:[]
+      userTotal:[],
+      queryInfo:{
+        type:1,
+        page:1,
+        size:10,
+        start:'2020-3-1',
+        end:'2020-5-1'
+      },
+       total:null,
+        payList:[],
     }
   },
    created(){
@@ -156,12 +170,32 @@ export default {
           console.log(res);
           this.userTotal = res.data.data
       })
-     
+     this.getList()
    },
   mounted(){
     this.drawLine();
   },
   methods: {
+       handleSizeChange(newsize){
+        console.log(newsize);
+        this.queryInfo.page = 1
+        this.queryInfo.size = newsize;
+        this.getList()
+      },
+      handleCurrentChange(newpage){
+        this.queryInfo.page=newpage
+        this.getList()
+      },
+     getList(){
+         this.$http.get('admin/index/register/detail'
+      ).then(res=>{
+        console.log(res);
+        
+        this.payList = res.data.data
+        this.total = res.data.data.length
+        console.log(this.payList);
+      })
+    },
     drawLine(){
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))

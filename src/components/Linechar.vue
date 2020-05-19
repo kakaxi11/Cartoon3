@@ -1,16 +1,5 @@
 <template>
 <div>
-  <p>用户组列表</p>
-  <div class="MessageHeader">
-           <div>    <el-input placeholder="用户名|昵称" size="small">
-          </el-input>        
-    <el-button  size="small" type="primary" ><i class="iconfont icon-sousuo"></i>搜索</el-button>
-   <el-button  size="small" type="primary" ><i class="iconfont icon-tianjia"></i>添加</el-button> 
-   <el-button  size="small"  type="primary" >显示全部</el-button>
-   <el-button  size="small"  type="warning" >批量删除</el-button></div>
-   <el-button size="small" type="primary"><i class="iconfont icon-shuaxin"></i>刷新</el-button>   
-  </div>
-  
   <div :id="id" :class="className" :style="{height:height,width:width}" />
 </div>
   <!-- echars插件 -->
@@ -18,7 +7,7 @@
 
 <script>
 import echarts from 'echarts'
-import resize from './mixins/resize'
+import resize from '../views/Permissions/Charts/mixins/resize'
 
 export default {
   mixins: [resize],
@@ -73,14 +62,14 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
 
       this.chart.setOption({
-        backgroundColor: '#394056',
+        backgroundColor: '#EAEDF1',
         title: {
           top: 20,
-          text: '用户列表',
+          text: '订单折线图',
           textStyle: {
-            fontWeight: 'normal',
+            fontWeight: '600',
             fontSize: 16,
-            color: '#F1F1F3'
+            color: '#292929'
           },
           left: '1%'
         },
@@ -102,7 +91,7 @@ export default {
           right: '44%',
           textStyle: {
             fontSize: 12,
-            color: '#F1F1F3'
+            color: '#292929'
           },
         },
         grid: {
@@ -117,6 +106,7 @@ export default {
           boundaryGap: false,
           axisLine: {
             lineStyle: {
+                //X轴字体颜色
               color: '#57617B'
             }
           },
@@ -124,7 +114,7 @@ export default {
         }],
         yAxis: [{
           type: 'value',
-          name: '(%)',
+          name: '',
           axisTick: {
             show: false
           },
@@ -139,9 +129,11 @@ export default {
               fontSize: 14
             }
           },
+
+          //X轴线段颜色
           splitLine: {
             lineStyle: {
-              color: '#57617B'
+              color: '#CBCBCB'
             }
           }
         }],
@@ -157,19 +149,19 @@ export default {
               width: 1
             }
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(137, 189, 27, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(137, 189, 27, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(137, 189, 27, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(137, 189, 27, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
           itemStyle: {
             normal: {
               color: 'rgb(137,189,27)',
@@ -191,19 +183,20 @@ export default {
               width: 1
             }
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(0, 136, 212, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(0, 136, 212, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
+        //   折线图折线背景
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(0, 136, 212, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(0, 136, 212, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
           itemStyle: {
             normal: {
               color: 'rgb(0,136,212)',
@@ -225,19 +218,19 @@ export default {
               width: 1
             }
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(219, 50, 51, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(219, 50, 51, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(219, 50, 51, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(219, 50, 51, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
           itemStyle: {
             normal: {
               color: 'rgb(219,50,51)',
@@ -259,19 +252,19 @@ export default {
               width: 1
             }
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(0, 136, 212, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(0, 136, 212, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(0, 136, 212, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(0, 136, 212, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
           itemStyle: {
             normal: {
               color: 'rgb(0,136,212)',
@@ -293,19 +286,19 @@ export default {
               width: 1
             }
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(255,252,0, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(255,252,0, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(255,252,0, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(255,252,0, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
           itemStyle: {
             normal: {
               color: 'rgb(255,252,0)',
@@ -323,23 +316,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.MessageHeader{
-  display:flex;
-  justify-content:space-between;
-  div{
-    display:flex;
-    align-items: center;
-  }
-    .el-input{
-        width:200px;
-    }
 
- padding:0 10px 10px 0px;
-  border-bottom: 2px solid #ccc;
-  .el-button{
-      margin-left:15px;
-  }
-  margin-bottom:30px;
-}
 
 </style>

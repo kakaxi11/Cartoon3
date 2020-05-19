@@ -90,7 +90,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="queryInfo.page"
       :page-sizes="[5, 10, 20, 30]"
       :page-size="queryInfo.size"
       layout="total, sizes, prev, pager, next, jumper"

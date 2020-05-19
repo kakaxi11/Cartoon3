@@ -12,41 +12,50 @@
     border
    >
     <el-table-column
-      prop="username"    
-      label="日期"
+      prop="id"    
+      label="编号"
      >
     </el-table-column>
     <el-table-column
-      prop="name"
-      label="总新增用户"
+      prop="username"
+      label="举报者"
    >
     </el-table-column>
     <el-table-column
-      prop="address"
-      label="头条"
+      prop="reportName"
+      label="被举报用户"
      
       >
     </el-table-column>
      <el-table-column
-      prop="state"
-      label="oppo"
-    
+      prop="reportImage"
+      label="被举报用户头像"
+      >
+      <template slot-scope="scope">
+        <img :src="scope.row.reportImage" alt="" >
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="reportTypeName"
+      label="举报类型"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="APP应用"
-   
+      prop="content"
+      label="举报内容"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="其他（未知渠道）"
-     
+      prop="createTime"
+      label="添加时间"
       >
+      <!-- 作用域插槽 -->
+      <template slot-scope="scope">
+        <!-- {{scope.row.createTime | dateFormat}} -->
+        {{scope.row.createTime | dateFormat}}
+      </template>
     </el-table-column>
   </el-table>
-
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -56,7 +65,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="400">
     </el-pagination>
-
   </div>
 </template>
 

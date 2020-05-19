@@ -83,7 +83,7 @@
     >
     </el-table-column>
     <el-table-column
-      prop="address"
+      prop="username"
       label="用户名称"    
       >
     </el-table-column>
@@ -97,17 +97,17 @@
         </template>
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="channel"
       label="用户渠道"  
       >
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="score"
       label="当前书币"    
       >
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="orderChannel"
       label="充值应用"
       >
     </el-table-column>
@@ -118,43 +118,53 @@
       >
     </el-table-column>
        <el-table-column
-      prop="state"
-      label="充值漫画"
+      prop="orderBookId"
+      label="充值漫画ID"
       >
     </el-table-column>
        <el-table-column
-      prop="state"
+      prop="orderType"
       label="充值类型"
-      >
-    </el-table-column>
-       <el-table-column
-      prop="state"
-      label="订单金额"
-      >
-    </el-table-column>
-       <el-table-column
-      prop="state"
-      label="订单详情"
-      >
-    </el-table-column>
-       <el-table-column
-      prop="state"
-      label="提交时间"
       >
       
     </el-table-column>
        <el-table-column
-      prop="state"
+      prop="orderMoney"
+      label="订单金额"
+      >
+    </el-table-column>
+       <el-table-column
+      prop="orderType"
+      label="订单详情"
+      >
+    </el-table-column>
+       <el-table-column
+      prop="orderAddtime"
+      label="提交时间"
+      >
+      <template slot-scope="scope">
+        {{scope.row.orderAddtime | dateFormat}}        
+      </template>
+    </el-table-column>
+       <el-table-column
+      prop="orderPaytype"
       label="支付方式"
       >
+      <template slot-scope="scope">
+      <!-- 三元运算嵌套使用 -->
+        {{scope.row.orderPaytype===1?"微信":scope.row.orderPaytype===2?"支付宝":"H5支付"}}
+      </template>
     </el-table-column>
        <el-table-column
-      prop="state"
+      prop="orderOvertime"
       label="支付时间"
       >
+           <template slot-scope="scope">
+        {{scope.row.orderOvertime | dateFormat}}        
+      </template>
     </el-table-column>
        <el-table-column
-      prop="state"
+      prop="orderState"
       label="订单状态"
       >
     </el-table-column>
@@ -163,11 +173,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="queryInfo.page"
       :page-sizes="[5,10,20,30]"
       :page-size="this.queryInfo.size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
 
   </div>
@@ -177,6 +187,7 @@
 export default {
     data(){
         return{
+          total:null,
            queryInfo:{
             type:1,
             page:1,
@@ -242,6 +253,16 @@ export default {
       getList(){
         this.$http.get('admin/order/info/list/get',{params:this.queryInfo}).then(res=>{
        this.payList = res.data.data.list
+       this.total = res.data.data.total
+       this.payList.forEach(item=>{
+           switch(item.orderType){
+                 case 1:item.orderType = "充值"; break;
+                 case 2:item.orderType = "包月vip"; break;
+                 case 3:item.orderType = "季度vip"; break;
+                 case 4:item.orderType = "半年vip"; break;
+                 case 5:item.orderType = "包年vip"; break;
+               }             
+       })
        console.log(this.payList);
         })
       },

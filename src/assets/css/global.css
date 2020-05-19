@@ -58,3 +58,9 @@ body,
     padding:5px 0 0 0;
   height:30px;
 }
+.grid-content{
+  line-height:0px !important;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}

@@ -11,38 +11,50 @@
     :data="suggestionList"
     border
  >
+
+							
+
     <el-table-column
-      prop="date"    
-      label="日期"
+      prop="id"    
+      label="编号"
      >
     </el-table-column>
     <el-table-column
-      prop="content"
-      label="总新增用户"
+      prop="idnumber"
+      label="IDnumber"
       >
     </el-table-column>
     <el-table-column
       prop="username"
-      label="头条"
-     
+      label="昵称" 
       >
     </el-table-column>
      <el-table-column
-      prop="state"
-      label="oppo"
- 
+      prop="contact"
+      label="联系方式"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="APP应用"
-     
+      prop="content"
+      label="反馈内容"  
       >
     </el-table-column>
     <el-table-column
+      prop="type"
+      label="来源"
+      >
+    </el-table-column>
+      <el-table-column
+      prop="addtime"
+      label="添加时间"
+      >
+      <template slot-scope="scope">
+        {{scope.row.addtime | dateFormat}}
+      </template>
+    </el-table-column>
+      <el-table-column
       prop="state"
-      label="其他（未知渠道）"
-     
+      label="操作"
       >
     </el-table-column>
   </el-table>

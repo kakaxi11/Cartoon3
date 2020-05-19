@@ -3,8 +3,15 @@
       <p>投放回收统计列表</p>
         <div class="MessageHeader">
             <div>
-    <el-button type="primary" size="small" plain>选择时间</el-button>
-        <el-button type="primary" size="small" plain> <i class="iconfont icon-sousuo"></i>查询</el-button>
+        <el-date-picker
+      v-model="value1"
+      type="daterange"
+      size="small"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker>
+        <el-button type="primary" size="small" > <i class="iconfont icon-sousuo"></i>查询日期</el-button>
             <el-button type="warning" size="small"  class="Excel">导出Excel</el-button>
             </div>
 
@@ -13,59 +20,59 @@
   </div>
   								
   <el-table
-    :data="CartoonList"
+    :data="LogList"
     border
-    height="733"
+   
   >
     <el-table-column
-      prop="id"    
+      prop="date"    
       label="日期"
      >
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="count"
       label="当日所有新增用户数"
     >
     </el-table-column>
     <el-table-column
-      prop="image"
+      prop="today"
       label="当天充值"
       max-width="90"
       >
       <!-- 作用域插槽 -->
     </el-table-column>
      <el-table-column
-      prop="typeName"
+      prop="threeDay"
       label="3天累计充值"
       >
     </el-table-column>
     <el-table-column
-      prop="view"
+      prop="fiveDay"
       label="5天累计充值"
    
       >
     </el-table-column>
     <el-table-column
-      prop="isend"
+      prop="sevenDay"
       label="7天累计充值"
     
       >
     </el-table-column>
      <el-table-column
-      prop="today"
+      prop="fourteenDay"
       label="14天累计充值"
       >
       <!-- 作用域插槽 -->
       
     </el-table-column>
      <el-table-column
-      prop="yesterday"
+      prop="thirtyDay"
       label="30天累计充值"
       >
       
     </el-table-column>
      <el-table-column
-      prop="all"
+      prop="now"
       label="至今累计充值"
       >
     </el-table-column>
@@ -74,11 +81,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="logInfo.page"
       :page-sizes="[5, 10, 20, 30]"
-      :page-size="queryInfo.size"
+      :page-size="this.logInfo.size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
 
   
@@ -96,11 +103,20 @@ data(){
             size:10,
             key:''
           },
-          CartoonList:[]
+           logInfo:{
+        page:1,
+        size:10,
+        start:'2020-3-1',
+        end:'2020-5-1'
+      },
+      total:null,
+          CartoonList:[],
+          LogList:[]
         }
     },
     created(){
       this.getList()
+      this.getlogList()
     },
     methods:{
       getList(){
@@ -118,6 +134,14 @@ data(){
         )
       })
       },
+       getlogList(){
+         this.$http.get('admin/new/user/recharge/info',{params:this.logInfo}
+      ).then(res=>{
+        this.LogList = res.data.data.list
+        this.total =res.data.data.total
+        console.log(this.LogList);
+      })
+    },
       SeachKey(){
         this.getList()
       },
@@ -133,13 +157,13 @@ data(){
       //通过页码器内置的方法更改请求参数并获取数据
       handleSizeChange(newsize){
         console.log(newsize);
-        this.queryInfo.page = 1
-        this.queryInfo.size = newsize;
-        this.getList()
+        this.logInfo.page = 1
+        this.logInfo.size = newsize;
+        this.getlogList()
       },
       handleCurrentChange(newpage){
-        this.queryInfo.page=newpage
-        this.getList()
+        this.logInfo.page=newpage
+        this.getlogList()
       }  
     }
 }
@@ -152,7 +176,9 @@ p{
 .MessageHeader{
   display:flex;
   justify-content:space-between;
-  
+  .el-button{
+    margin-left:5px;
+  }
   div{
      display:flex;
   

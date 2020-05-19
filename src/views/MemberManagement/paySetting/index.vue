@@ -8,38 +8,71 @@
   </div>
   
   <el-table
-    :data="tableData"
+    :data="paylist"
     border
   >
     <el-table-column
-      prop="date"    
-      label="日期"
+      prop="id"    
+      label="编号"
       >
     </el-table-column>
     <el-table-column
-      prop="name"
-      label="总新增用户"
+      prop="money"
+      label="充值金额"
       >
     </el-table-column>
     <el-table-column
-      prop="address"
-      label="头条"
-      >
-    </el-table-column>
-     <el-table-column
-      prop="state"
-      label="oppo"    
+      prop="type"
+      label="类型"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="APP应用" 
+      prop="coin"
+      label="书币"    
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="其他（未知渠道）"
-      
+      prop="giveCoin"
+      label="赠送" 
+      >
+    </el-table-column>
+    <el-table-column
+      prop="content"
+      label="套餐描述"
+      >
+      </el-table-column>
+      <el-table-column
+      prop="saleDesc"
+      label="标签"
+      >
+      </el-table-column>
+      <el-table-column
+      prop="isGive"
+      label="是否赠送"
+      >
+       <template slot-scope="scope">
+        {{scope.row.isGive===0?'是':'否'}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="isSale"
+      label="是否打折"
+      >
+       <template slot-scope="scope">
+        {{scope.row.isSale===0?'是':'否'}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="isDisplay"
+      label="是否展示"
+      >
+      <template slot-scope="scope">
+        {{scope.row.isDisplay===0?'是':'否'}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop=""
+      label="编辑"
       >
     </el-table-column>
   </el-table>
@@ -47,11 +80,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
+      :current-page="queryInfo.page"
+      :page-sizes="[10, 20, 30, 40]"
       :page-size="100"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
 
   </div>
@@ -63,13 +96,31 @@ export default {
       return{
         paylist:[],
         queryInfo:{
-          size:1
+          page:1,
+          size:10
         }
       }
     },
   created(){
-    this.$http.get('admin/cartoon/recharge/info',)
-
+    this.getList()
+  },
+  methods:{
+    getList(){
+this.$http.get('user/recharge/package/get').then(res=>{
+      this.paylist = res.data.data
+      this.total = res.data.data.length
+    })
+    },
+     handleSizeChange(newsize){
+        console.log(newsize);
+        this.queryInfo.page = 1
+        this.queryInfo.size = newsize;
+        this.getList()
+      },
+      handleCurrentChange(newpage){
+        this.queryInfo.page=newpage
+        this.getList()
+      }
   }
 
 }

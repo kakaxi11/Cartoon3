@@ -37,22 +37,12 @@
       >
     </el-table-column>
     <el-table-column
-      prop=""
+      prop="userType"
       label="注册渠道"
       >
     </el-table-column>
     <el-table-column
-      prop="state"
-      label="注册计划ID"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="state"
-      label="注册漫画ID"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="state"
+      prop="userface"
       label="头像"
       >
     </el-table-column>
@@ -62,23 +52,13 @@
       >
     </el-table-column>
     <el-table-column
-      prop="state"
+      prop="mobile"
       label="手机号"
       >
     </el-table-column>
     <el-table-column
       prop="isvip"
       label="vip"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="state"
-      label="三方登录"
-      >
-    </el-table-column>
-    <el-table-column
-      prop="state"
-      label="状态"
       >
     </el-table-column>
     <el-table-column
@@ -108,7 +88,7 @@
    <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="queryInfo.page"
       :page-sizes="[10, 20, 30, 40]"
       :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
@@ -127,30 +107,51 @@ export default {
             page:1,
             size:10
           },
-          total:1000
+          total:null
      }
    },
-   created(){
-      this.$http.get('admin/index/user/list/get',
+   methods:{
+     handleSizeChange(newsize){
+        console.log(newsize);
+        this.queryInfo.page = 1
+        this.queryInfo.size = newsize;
+        this.getList()
+      },
+      handleCurrentChange(newpage){
+        this.queryInfo.page=newpage
+        this.getList()
+      },
+      getList(){
+         this.$http.get('admin/index/user/list/get',
       {
         params: this.queryInfo
       }
       ).then(res=>{
         this.userList = res.data.data.list
+        this.total = res.data.data.total
          this.userList.forEach(item=>      
        {
-               item.isvip = item.isvip===1?'普通会员':'高级会员'
-               item.isYk = item.isYK===1?'游客':'注册'
-               item.userType = item.userType===1?'APP':'快应用'
-               item.sex = item.sex===1?'男':'女'
-               console.log(item.isYk);                           
+          item.isYk = item.isYK===1?'游客用户':'注册住户'
+          item.userType = item.userType===1?'APP':'快应用'
+          item.sex = item.sex===1?'男':'女'
+          switch(item.isvip){
+                 case 1:item.isvip = "普通"; break;
+                 case 2:item.isvip = "包月"; break;
+                 case 3:item.isvip = "季度"; break;
+                 case 4:item.isvip = "半年"; break;
+                 case 5:item.isvip = "包年"; break;
+               }                          
                return 
        } 
         )
         
         
       })
-     
+      }
+
+   },
+   created(){
+     this.getList()
    }
 
 
