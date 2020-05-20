@@ -48,33 +48,26 @@
       :value="item.value">
     </el-option>
   </el-select>
-    <el-date-picker
-      v-model="value1"
-      type="daterange"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      size="small"
-      >
-    </el-date-picker>
+   
 
 
 
     <el-button type="primary" size="small" @click="SeachKey"><i class="iconfont icon-sousuo"></i>搜索查询</el-button>
    
    <el-button type="primary" size="small" >显示全部</el-button>
-   <el-button type="warning" size="small" >导出Excel</el-button>
+   <el-button type="warning" size="small" @click="exportExcel">导出Excel</el-button>
       <el-button type="primary" size="small" class="refresh"><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
   
   <el-table
     :data="payList"
     border
-    
+     id="out-table"
     >
     <el-table-column
       prop="id"    
       label="编号"
+      min-width="70"
      >
     </el-table-column>
     <el-table-column
@@ -90,6 +83,7 @@
      <el-table-column
       prop="createTime"
       label="用户注册时间"  
+      min-width="140"
       >
       <template slot-scope="scope">
         {{scope.row.createTime | dateFormat}}
@@ -98,7 +92,8 @@
     </el-table-column>
     <el-table-column
       prop="channel"
-      label="用户渠道"  
+      label="用户渠道"
+      min-width="90"
       >
     </el-table-column>
     <el-table-column
@@ -114,7 +109,7 @@
     <el-table-column
       prop="orderSn"
       label="订单号"
-      min-width="190"
+      min-width="140"
       >
     </el-table-column>
        <el-table-column
@@ -141,6 +136,7 @@
        <el-table-column
       prop="orderAddtime"
       label="提交时间"
+      min-width="140"
       >
       <template slot-scope="scope">
         {{scope.row.orderAddtime | dateFormat}}        
@@ -158,6 +154,7 @@
        <el-table-column
       prop="orderOvertime"
       label="支付时间"
+      min-width="140"
       >
            <template slot-scope="scope">
         {{scope.row.orderOvertime | dateFormat}}        
@@ -184,6 +181,10 @@
 </template>
 
 <script>
+//引入导出excel表格的依赖
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
+
 export default {
     data(){
         return{
@@ -192,7 +193,9 @@ export default {
             type:1,
             page:1,
             size:10,
-            key:''     
+            key:'',
+            start:'2020-3-1',
+            end:'2020-5-1'    
           },
           payList:[],
            options: [{
@@ -211,7 +214,6 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
-        value: '',
    pickerOptions: {
           shortcuts: [{
             text: '最近一周',
@@ -242,14 +244,44 @@ export default {
         
         // 开始日期与结束日期
         //转化为参数请求的时间格式,传入queryinfo进行请求。
-        value1: '',
-        value2: ''
+        
+
+        //触发日期选择器change事件后得到的时间数组
+        value1:[]
         }
     },
     created(){
       this.getList()
     },
     methods:{
+      exportExcel() {
+        /* 从表生成工作簿对象 */
+        var wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
+        /* 获取二进制字符串作为输出 */
+        var wbout = XLSX.write(wb, {
+            bookType: "xlsx",
+            bookSST: true,
+            type: "array"
+        });
+        try {
+            FileSaver.saveAs(
+            //Blob 对象表示一个不可变、原始数据的类文件对象。
+            //Blob 表示的不一定是JavaScript原生格式的数据。
+            //File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+            //返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+            new Blob([wbout], { type: "application/octet-stream" }),
+            //设置导出文件名称
+            "sheetjs.xlsx"
+            );
+        } catch (e) {
+            if (typeof console !== "undefined") console.log(e, wbout);
+        }
+        return wbout;
+        },
+      change(){
+        this.queryInfo.start = this.value1[0]
+        this.queryInfo.end = this.value1[1]
+      },
       getList(){
         this.$http.get('admin/order/info/list/get',{params:this.queryInfo}).then(res=>{
        this.payList = res.data.data.list
@@ -278,9 +310,6 @@ export default {
         this.getList()
       },
     SeachKey(){
-      console.log(this.value1);
-      console.log(this.value2);
-      
       this.getList()
     }
 }

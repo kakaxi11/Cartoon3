@@ -20,11 +20,8 @@
             <p class="weight">{{userTotal.usersNumber}}</p>
             <p>总用户人数</p>
         </span>
-
     </div>
     </el-card>
-
-
   <div id="myChart" :style="{width: '1200px', height: '450px'}"></div>
    
  <el-table
@@ -71,14 +68,12 @@
   <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="queryInfo.page"
       :page-sizes="[5,10, 20, 30]"
-       :page-size="this.queryInfo.size"
+       :page-size="queryInfo.size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
- 
-
     </div>
 </template>
 

@@ -43,10 +43,10 @@ body,
   padding:15px;
 }
 .el-table th>.cell {
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .el-table .cell {
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .el-button{
   height:32px !important;
@@ -63,4 +63,9 @@ body,
   display:flex;
   justify-content: center;
   align-items:center;
+}
+.el-button--mini{
+  padding:0px 10px;
+ line-height:10px; 
+ margin-bottom:4px;
 }

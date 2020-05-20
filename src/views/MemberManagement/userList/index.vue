@@ -1,9 +1,22 @@
 <template>
   <div>
     <p>会员列表</p>
+      <div class="MessageHeader">
+            <div>
+      <el-input size="small" style="width:230px" placeholder="用户ID | IDnumber |昵称|手机号" v-model="queryInfo.Key" clearable></el-input>
+
+        <el-button type="primary" size="small"  @click="Search"> <i class="iconfont icon-sousuo"></i>查询</el-button>
+            <el-button type="warning" size="small"  class="Excel" @click="exportExcel">导出Excel</el-button>
+            </div>
+
+   
+   <el-button type="primary" size="small" ><i class="iconfont icon-shuaxin"></i>刷新</el-button>
+  </div>
+
       <el-table
     :data="userList"
     border
+    id="out-table"
   >
     <el-table-column
       prop="date"    
@@ -64,6 +77,7 @@
     <el-table-column
       prop="createTime"
       label="注册时间"
+      min-width="140"
       >
       <template slot-scope="scope">
         {{scope.row.createTime | dateFormat}}
@@ -73,6 +87,7 @@
     <el-table-column
       prop="lastLoginTime"
       label="最后登录时间"
+      min-width="140"
       >
        <template slot-scope="scope">
         {{scope.row.lastLoginTime | dateFormat}}
@@ -99,18 +114,49 @@
 </template>
 
 <script>
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
+
 export default {
    data(){
      return{
           userList:[],
           queryInfo:{
             page:1,
-            size:10
+            size:10,
+            Key:''
           },
           total:null
      }
    },
    methods:{
+       exportExcel() {
+        /* 从表生成工作簿对象 */
+        var wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
+        /* 获取二进制字符串作为输出 */
+        var wbout = XLSX.write(wb, {
+            bookType: "xlsx",
+            bookSST: true,
+            type: "array"
+        });
+        try {
+            FileSaver.saveAs(
+            //Blob 对象表示一个不可变、原始数据的类文件对象。
+            //Blob 表示的不一定是JavaScript原生格式的数据。
+            //File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+            //返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+            new Blob([wbout], { type: "application/octet-stream" }),
+            //设置导出文件名称
+            "sheetjs.xlsx"
+            );
+        } catch (e) {
+            if (typeof console !== "undefined") console.log(e, wbout);
+        }
+        return wbout;
+        },
+     Search(){
+       this.getList()
+     },
      handleSizeChange(newsize){
         console.log(newsize);
         this.queryInfo.page = 1
@@ -160,6 +206,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+p{
+    font-size:13px;
+}
+.MessageHeader{
+  display:flex;
+  justify-content:space-between;
+  .el-button{
+    margin-left:5px;
+  }
+  div{
+     display:flex;
+  
+  align-items:center;
+  }
+ .refresh{
+   margin-left:73%;
+ }
+
+ padding:0 10px 10px 0px;
+  border-bottom: 2px solid #ccc;
+}
 
 </style>

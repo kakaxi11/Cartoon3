@@ -10,10 +10,13 @@
       size="small"
       range-separator="至"
       start-placeholder="开始日期"
-      end-placeholder="结束日期">
+      value-format="yyyy-MM-dd"   
+      end-placeholder="结束日期"
+      @change="change"
+      >
     </el-date-picker>
 
-            <el-button type="primary" size="small" ><i class="iconfont icon-sousuo"></i>查询日期</el-button>
+            <el-button type="primary" size="small" @click="Search"><i class="iconfont icon-sousuo"></i>查询日期</el-button>
         </div> 
    <el-button type="primary" size="small" ><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
@@ -30,65 +33,69 @@
 
     <el-row :gutter="20">
   <el-col :span="6"><div class="grid-content bg-blue">
-       <div>
+    
+       <div >
 <!-- 取消Lineheight -->
    <p>app充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
-<i>完成订单数:</i>{{payTotal.today.count}}
+    <!-- 请求时出现了报错的问题，把请求变为获取单个对象而不是嵌套对象时报错消失 -->
+ <i>充值金额:</i> {{payTotal.sum}}
+<i>完成订单数:</i>{{payTotal.count}}
    </div>
       </div></el-col>
   <el-col :span="6"><div class="grid-content bg-aqua">
-         <div>
+         <div >
 <!-- 取消Lineheight -->
    <p>app充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
-<i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i> {{payTotal.sum}}
+<i>完成订单数:</i>{{payTotal.count}}
    </div>
       </div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple">   <div>
+  <el-col :span="6"><div class="grid-content bg-purple">  
+     <div >
 <!-- 取消Lineheight -->
    <p>app充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
-<i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i> {{payTotal.sum}}
+<i>完成订单数:</i>{{payTotal.count}}
    </div></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-green">   <div>
+  <el-col :span="6"><div class="grid-content bg-green">  
+   <div >
 <!-- 取消Lineheight -->
    <p>app充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
-<i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i> {{payTotal.sum}}
+<i>完成订单数:</i>{{payTotal.count}}
    </div></div></el-col>
 </el-row>
   <el-row :gutter="20">
   <el-col :span="6"><div class="grid-content bg-blue">
-   <div>
+   <div >
 <!-- 取消Lineheight -->
    <p>快应用充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
-<i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i> {{payTotal.sum}}
+<i>完成订单数:</i>{{payTotal.count}}
    </div>
     </div></el-col>
   <el-col :span="6"><div class="grid-content bg-aqua">
-     <div>
+     <div >
 <!-- 取消Lineheight -->
    <p>快应用充值</p>
- <i>充值金额:</i>{{payTotal.today.sum}}
- <i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i>{{payTotal.sum}}
+ <i>完成订单数:</i>{{payTotal.count}}
    </div>
     </div></el-col>
   <el-col :span="6"><div class="grid-content bg-purple">
-      <div>
+      <div >
 <!-- 取消Lineheight -->
    <p>快应用充值</p>
- <i>充值金额:</i>{{payTotal.today.sum}}
- <i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i>{{payTotal.sum}}
+ <i>完成订单数:</i>{{payTotal.count}}
    </div>
     </div></el-col>
   <el-col :span="6"><div class="grid-content bg-green">
-   <div>
+   <div >
 <!-- 取消Lineheight -->
    <p>快应用充值</p>
- <i>充值金额:</i> {{payTotal.today.sum}}
- <i>完成订单数:</i>{{payTotal.today.count}}
+ <i>充值金额:</i> {{payTotal.sum}}
+ <i>完成订单数:</i>{{payTotal.count}}
    </div>
       
     </div></el-col>
@@ -187,7 +194,7 @@ export default {
      
       total:null,
       payList:[],
-      payTotal:[],
+      payTotal:{},
       //充值机录
        pickerOptions: {
           disabledDate(time) {
@@ -214,21 +221,29 @@ export default {
             }
           }]
         },
-        value1: '',
-        value2: '',
-      
+        value1:[],
     }
   },
   components:{
       lineChar
   },
-  mounted(){
+  created(){
     this.getList()
   this.getFastappList()
+  },
+  mounted(){
+
     
     // this.drawLine();
   },
   methods: {
+    Search(){
+      this.getList()
+    },
+    change(){
+      this.queryInfo.start = this.value1[0],
+      this.queryInfo.end = this.value1[1]
+    },
     getList(){
          this.$http.get('admin/recharge/info',{params:this.queryInfo}
       ).then(res=>{
@@ -240,8 +255,7 @@ export default {
     //获取充值数据
     getFastappList(){
       this.$http.get('admin/recharge/log/get').then(res=>{
-  
-        this.payTotal = res.data.data
+       this.payTotal = res.data.data.today
         console.log(this.payTotal);
         
       })

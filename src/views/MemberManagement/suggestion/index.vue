@@ -36,7 +36,8 @@
     </el-table-column>
     <el-table-column
       prop="content"
-      label="反馈内容"  
+      label="反馈内容"
+      min-width="400"
       >
     </el-table-column>
     <el-table-column
@@ -47,6 +48,7 @@
       <el-table-column
       prop="addtime"
       label="添加时间"
+      min-width="140"
       >
       <template slot-scope="scope">
         {{scope.row.addtime | dateFormat}}
@@ -62,11 +64,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :current-page="queryInfo.page"
+      :page-sizes="[5, 10, 20, 30]"
+      :page-size="queryInfo.size"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
 
   </div>
@@ -80,12 +82,26 @@ export default {
             page:1,
             size:5
           },
+          total:null,
           suggestionList:[]
         }
+    },
+    methods:{
+         handleSizeChange(newsize){
+        console.log(newsize);
+        this.queryInfo.page = 1
+        this.queryInfo.size = newsize;
+        this.getList()
+      },
+      handleCurrentChange(newpage){
+        this.queryInfo.page=newpage
+        this.getList()
+      },
     },
     created(){
       this.$http.get('admin/user/feedback',{params:this.queryInfo}).then(res=>{
        this.suggestionList = res.data.data.list
+       this.total = res.data.data.total
       })
 
     }

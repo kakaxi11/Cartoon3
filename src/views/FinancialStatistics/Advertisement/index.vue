@@ -9,10 +9,13 @@
       size="small"
       range-separator="至"
       start-placeholder="开始日期"
-      end-placeholder="结束日期">
+      value-format="yyyy-MM-dd"    
+       end-placeholder="结束日期"
+       @change="change"
+       >
     </el-date-picker>
-        <el-button type="primary" size="small" > <i class="iconfont icon-sousuo"></i>查询日期</el-button>
-            <el-button type="warning" size="small"  class="Excel">导出Excel</el-button>
+        <el-button type="primary" size="small"  @click="Search"> <i class="iconfont icon-sousuo"></i>查询日期</el-button>
+            <el-button type="warning" size="small"  class="Excel" @click="exportExcel">导出Excel</el-button>
             </div>
 
    
@@ -22,7 +25,7 @@
   <el-table
     :data="LogList"
     border
-   
+   id="out-table"
   >
     <el-table-column
       prop="date"    
@@ -94,6 +97,9 @@
 </template>
 
 <script>
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
+
 export default {
 data(){
         return{
@@ -107,8 +113,9 @@ data(){
         page:1,
         size:10,
         start:'2020-3-1',
-        end:'2020-5-1'
+        end:'2020-3-30'
       },
+      value1:[],
       total:null,
           CartoonList:[],
           LogList:[]
@@ -119,6 +126,37 @@ data(){
       this.getlogList()
     },
     methods:{
+         exportExcel() {
+        /* 从表生成工作簿对象 */
+        var wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
+        /* 获取二进制字符串作为输出 */
+        var wbout = XLSX.write(wb, {
+            bookType: "xlsx",
+            bookSST: true,
+            type: "array"
+        });
+        try {
+            FileSaver.saveAs(
+            //Blob 对象表示一个不可变、原始数据的类文件对象。
+            //Blob 表示的不一定是JavaScript原生格式的数据。
+            //File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+            //返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+            new Blob([wbout], { type: "application/octet-stream" }),
+            //设置导出文件名称
+            "sheetjs.xlsx"
+            );
+        } catch (e) {
+            if (typeof console !== "undefined") console.log(e, wbout);
+        }
+        return wbout;
+        },
+      Search(){
+        this.getlogList()
+      },
+      change(){
+      this.logInfo.start = this.value1[0]
+      this.logInfo.end = this.value1[1]
+      },
       getList(){
         this.$http.get('admin/cartoon/recharge/info',{params:this.queryInfo}).then(res=>{
        this.CartoonList = res.data.data.list
