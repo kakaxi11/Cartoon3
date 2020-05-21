@@ -8,18 +8,15 @@
         <el-button type="primary" size="small"  @click="Search"> <i class="iconfont icon-sousuo"></i>查询</el-button>
             <el-button type="warning" size="small"  class="Excel" @click="exportExcel">导出Excel</el-button>
             </div>
-
-   
    <el-button type="primary" size="small" ><i class="iconfont icon-shuaxin"></i>刷新</el-button>
   </div>
-
       <el-table
     :data="userList"
     border
     id="out-table"
   >
     <el-table-column
-      prop="date"    
+      prop="uid"    
       label="uid"
      >
     </el-table-column>
@@ -58,6 +55,9 @@
       prop="userface"
       label="头像"
       >
+      <template slot-scope="scope">
+        <img :src="scope.row.userface" alt="" style="width:65%">
+      </template>
     </el-table-column>
     <el-table-column
       prop="sex"
@@ -80,7 +80,7 @@
       min-width="140"
       >
       <template slot-scope="scope">
-        {{scope.row.createTime | dateFormat}}
+        {{scope.row.createTime*1000 | dateFormat}}
         <!-- 作用于插槽替换默认样式使用filter -->
         </template>
     </el-table-column>
@@ -97,7 +97,12 @@
     <el-table-column
       prop="state"
       label="操作"
+      min-width="100"
       >
+       <template slot-scope="scope">
+        <el-button size="mini" type="primary" icon="el-icon-view" @click="view(scope.row.id)"></el-button>
+      <el-button size="mini" type="danger" icon="el-icon-delete" @click="remove(scope.row.id)"></el-button>
+    </template>
     </el-table-column>
   </el-table>
    <el-pagination
@@ -109,10 +114,51 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+    <el-dialog
+  title="用户明细"
+  :visible.sync="dialogVisible"
+  width="60%"
+  :before-close="handleClose">
+  <el-table :data="gridData" title="充值明细">
+        <el-table-column label="充值明细">
+          <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+    <el-table-column property="address" label="地址"></el-table-column>
+   </el-table-column>
+  </el-table>
+  <el-table :data="signList">
+<el-table-column property="date" label="签到明细" width="150">
+     <el-table-column property="day" label="日期" width="150"></el-table-column>
+    <el-table-column property="coupon" label="签到" width="200"></el-table-column>
+    <el-table-column property="status" label="地址">
+      <template slot-scope="scope">
+        {{scope.row.status===true?'是':'否'}} 
+      </template>
+    </el-table-column>
+</el-table-column>
+  </el-table>
+  <el-table :data="gridData">
+<el-table-column property="date" label="章节明细" width="150">
+     <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+    <el-table-column property="address" label="地址">
+    </el-table-column>
+</el-table-column>
+  </el-table>
+  <el-table :data="gridData">
+<el-table-column property="date" label="签到明细" width="150">
+     <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+    <el-table-column property="address" label="地址"></el-table-column>
+</el-table-column>
+  </el-table>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
   </div>
-  
 </template>
-
 <script>
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
@@ -120,16 +166,30 @@ import XLSX from "xlsx";
 export default {
    data(){
      return{
+       dialogVisible:false,
           userList:[],
           queryInfo:{
             page:1,
             size:10,
             Key:''
           },
+          signList:[],
           total:null
+
+      
+
+
      }
    },
    methods:{
+     view(){
+       this.dialogVisible = true
+       this.$http.get('user/sign/detail/get').then(res=>{
+         console.log(res);
+         this.signList = res.data.data.list
+       }
+      )
+     },
        exportExcel() {
         /* 从表生成工作簿对象 */
         var wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
@@ -154,32 +214,36 @@ export default {
         }
         return wbout;
         },
+
+        
      Search(){
        this.getList()
      },
      handleSizeChange(newsize){
         console.log(newsize);
-        this.queryInfo.page = 1
+        this.queryInfo.page = 1;
         this.queryInfo.size = newsize;
         this.getList()
       },
       handleCurrentChange(newpage){
-        this.queryInfo.page=newpage
-        this.getList()
+        this.queryInfo.page=newpage;
+        this.getList();
       },
+      //数据请求api
       getList(){
          this.$http.get('admin/index/user/list/get',
       {
         params: this.queryInfo
       }
       ).then(res=>{
-        this.userList = res.data.data.list
-        this.total = res.data.data.total
+        this.userList = res.data.data.list;
+        this.total = res.data.data.total;
          this.userList.forEach(item=>      
        {
-          item.isYk = item.isYK===1?'游客用户':'注册住户'
+          item.isYk = item.isYK===1?'游客用户':'注册用户'
           item.userType = item.userType===1?'APP':'快应用'
           item.sex = item.sex===1?'男':'女'
+          //转化参数的数据格式
           switch(item.isvip){
                  case 1:item.isvip = "普通"; break;
                  case 2:item.isvip = "包月"; break;
@@ -187,15 +251,12 @@ export default {
                  case 4:item.isvip = "半年"; break;
                  case 5:item.isvip = "包年"; break;
                }                          
-               return 
+               return
        } 
-        )
-        
-        
-      })
-      }
-
-   },
+     )
+   })
+ }
+ },
    created(){
      this.getList()
    }
@@ -228,5 +289,13 @@ p{
  padding:0 10px 10px 0px;
   border-bottom: 2px solid #ccc;
 }
+.el-dialog{
+  .el-table{
+    margin:0 0 20px 0;
+  border-radius:7px;
+}
+}
+
+
 
 </style>

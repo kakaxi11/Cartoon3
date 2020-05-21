@@ -26,16 +26,16 @@ import axios from 'axios'
 //配置请求根路径
 axios.defaults.baseURL = 'http://192.168.1.8:8060/'
 //再request拦截器中，展示进度条 NProgress.start()
-// axios.interceptors.request.use(config => {
-//         NProgress.start()
-//         config.headers.Authorization = window.sessionStorage.getItem('token')
-//         return config
-//     })
-//     //在response拦截器中，隐藏进度条 NProgress.done()
-// axios.interceptors.response.use(config => {
-//     NProgress.done()
-//     return config
-// })
+axios.interceptors.request.use(config => {
+        NProgress.start()
+        config.headers.Authorization = window.sessionStorage.getItem('token')
+        return config
+    })
+    //在response拦截器中，隐藏进度条 NProgress.done()
+axios.interceptors.response.use(config => {
+    NProgress.done()
+    return config
+})
 Vue.prototype.$http = axios
 Vue.prototype.$moment = moment
 

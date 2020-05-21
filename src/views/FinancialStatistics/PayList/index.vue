@@ -3,9 +3,18 @@
       <p>充值列表</p>
         <div class="MessageHeader">
         
-     <el-input v-model="queryInfo.key" placeholder="用户名|ID 订单号" size="small" clearable></el-input>
+     <el-input v-model="queryInfo.key" placeholder="用户名|ID 订单号" size="small" clearable style="min-width:120px"></el-input>
 
-   <el-select v-model="value" placeholder="支付状态" size="small">
+   <!-- <el-select v-model="value" placeholder="支付状态" size="small">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select> -->
+
+<el-select v-model="value" placeholder="支付方式" size="small" style="min-width:120px">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -13,25 +22,16 @@
       :value="item.value">
     </el-option>
   </el-select>
-
-<el-select v-model="value" placeholder="支付方式" size="small">
+  <!-- <el-select v-model="value" placeholder="充值类型" size="small">
     <el-option
       v-for="item in options"
       :key="item.value"
       :label="item.label"
       :value="item.value">
     </el-option>
-  </el-select>
-  <el-select v-model="value" placeholder="充值类型" size="small">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
+  </el-select> -->
 
-  <el-select v-model="value" placeholder="应用" size="small">
+  <!-- <el-select v-model="value" placeholder="应用" size="small">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -47,7 +47,7 @@
       :label="item.label"
       :value="item.value">
     </el-option>
-  </el-select>
+  </el-select> -->
    
 
 
@@ -86,7 +86,7 @@
       min-width="140"
       >
       <template slot-scope="scope">
-        {{scope.row.createTime | dateFormat}}
+        {{scope.row.createTime*1000 | dateFormat}}
         <!-- 作用域插槽替换默认样式使用filter -->
         </template>
     </el-table-column>
@@ -337,9 +337,6 @@ p{
     margin:0 3px
 }
 .refresh{
-    margin:0 0 0 250px !important;
+    margin:0 0 0 950px !important;
 }
-
-
-
 </style>

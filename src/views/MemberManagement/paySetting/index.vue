@@ -110,6 +110,9 @@
       prop="money"
       label="充值金额"
       >
+      <template slot-scope="scope">
+        {{'￥'+scope.row.money/100}}
+        </template>
     </el-table-column>
     <el-table-column
       prop="type"

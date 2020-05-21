@@ -22,7 +22,7 @@
         </span>
     </div>
     </el-card>
-  <div id="myChart" :style="{width: '1200px', height: '450px'}"></div>
+  <Linechar></Linechar>
    
  <el-table
     :data="payList"
@@ -78,76 +78,75 @@
 </template>
 
 <script>
-
-
+import Linechar from '@/components/Linechar.vue'
 export default {
   name: 'hello',
   data () {
     return {
-     testRes:[
-          {
-              name:"重庆",  //name点的名称
-              value:369,   //value在y轴的位置高度
-              orgNum:15485,
-              regCapital:1907
-          },  
-          {
-              name:"上海",
-              value:276,
-              orgNum:15485,
-              regCapital:1907
-          },
-            {
-              name:"文档",
-              value:563,
-              orgNum:15485,
-              regCapital:1907
-          },
-            {
-              name:"sss",
-              value:613,
-              orgNum:15485,
-              regCapital:1907
-          },
-           {
-              name:"kss",
-              value:513,
-              orgNum:15485,
-              regCapital:1907
-          }
-      ],
-      testLes:[
-          {
-              name:"重庆",  //name点的名称
-              value:249,   //value在y轴的位置高度
-              orgNum:15485,
-              regCapital:1907
-          },  
-          {
-              name:"上海",
-              value:336,
-              orgNum:15485,
-              regCapital:1907
-          },
-            {
-              name:"文档",
-              value:453,
-              orgNum:15485,
-              regCapital:1907
-          },
-            {
-              name:"sss",
-              value:343,
-              orgNum:15485,
-              regCapital:1907
-          },
-           {
-              name:"kss",
-              value:533,
-              orgNum:15485,
-              regCapital:1907
-          }
-      ],
+    //  testRes:[
+    //       {
+    //           name:"重庆",  //name点的名称
+    //           value:369,   //value在y轴的位置高度
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },  
+    //       {
+    //           name:"上海",
+    //           value:276,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //         {
+    //           name:"文档",
+    //           value:563,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //         {
+    //           name:"sss",
+    //           value:613,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //        {
+    //           name:"kss",
+    //           value:513,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       }
+    //   ],
+    //   testLes:[
+    //       {
+    //           name:"重庆",  //name点的名称
+    //           value:249,   //value在y轴的位置高度
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },  
+    //       {
+    //           name:"上海",
+    //           value:336,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //         {
+    //           name:"文档",
+    //           value:453,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //         {
+    //           name:"sss",
+    //           value:343,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       },
+    //        {
+    //           name:"kss",
+    //           value:533,
+    //           orgNum:15485,
+    //           regCapital:1907
+    //       }
+    //   ],
       userTotal:[],
       queryInfo:{
         type:1,
@@ -159,6 +158,9 @@ export default {
        total:null,
         payList:[],
     }
+  },
+  components:{
+    Linechar
   },
    created(){
       this.$http.get('admin/index').then(res=>{
@@ -191,49 +193,49 @@ export default {
         console.log(this.payList);
       })
     },
-    drawLine(){
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('myChart'))
+//     drawLine(){
+//         // 基于准备好的dom，初始化echarts实例
+//         let myChart = this.$echarts.init(document.getElementById('myChart'))
 
-// this.testRes = res.responBody.map(item => {
-//      let jsonData = {}
-//      jsonData.name = item.adminArea
-//      jsonData.value = item.orgNum 
-//      jsonData.regCapital = item.regCapital 
+// // this.testRes = res.responBody.map(item => {
+// //      let jsonData = {}
+// //      jsonData.name = item.adminArea
+// //      jsonData.value = item.orgNum 
+// //      jsonData.regCapital = item.regCapital 
     
-//      return jsonData
-// })
+// //      return jsonData
+// // })
 
-        // 绘制图表
-        myChart.setOption({
-            title: { text: '用户折线图' },
-            tooltip: {
-    trigger: 'item',
-    formatter: function(a) {
-        //进行格式处理
-        return (
-            `${a['name']}</br>机构数量: ${a['value']} (${a['data'].orgNum}%)</br>注册资金: ${a['data'].regCapital} 亿元 (${a['data'].regCapitalPercent}%)</br>职工人数: ${a['data'].orgNum} (${a['data'].employeeNumPercent}%)`
-        )
-    }
-},
+//         // 绘制图表
+//         myChart.setOption({
+//             title: { text: '用户折线图' },
+//             tooltip: {
+//     trigger: 'item',
+//     formatter: function(a) {
+//         //进行格式处理
+//         return (
+//             `${a['name']}</br>机构数量: ${a['value']} (${a['data'].orgNum}%)</br>注册资金: ${a['data'].regCapital} 亿元 (${a['data'].regCapitalPercent}%)</br>职工人数: ${a['data'].orgNum} (${a['data'].employeeNumPercent}%)`
+//         )
+//     }
+// },
 
-            xAxis: {
-                data: ["2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-06"]
-            },
-            yAxis: {},
-            //series用于设置多个折线图
-            series: [
-                {
-                    type:'line',
-                    data:this.testRes
-                },
-                {
-                    type:'line',
-                    data:this.testLes
-                }
-            ]
-        });
-    }
+//             xAxis: {
+//                 data: ["2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-06"]
+//             },
+//             yAxis: {},
+//             //series用于设置多个折线图
+//             series: [
+//                 {
+//                     type:'line',
+//                     data:this.testRes
+//                 },
+//                 {
+//                     type:'line',
+//                     data:this.testLes
+//                 }
+//             ]
+//         });
+//     }
   }
 }
 </script>

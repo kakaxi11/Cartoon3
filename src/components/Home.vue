@@ -89,28 +89,28 @@ export default {
 
         ]
       },
-        {
-        name:'权限管理',
-        id:1,
-        children:[
-            {
-        aname:'管理员列表',
-         path:'AuthorityList',
-        },
-        {
-        aname:'用户组列表',
-         path:'echars'
-        },
-        {
-        aname:'菜单规则',
-        path:'AuthoUserList'
-        }
+        // {
+        // name:'权限管理',
+        // id:1,
+        // children:[
+        //     {
+        // aname:'管理员列表',
+        //  path:'AuthorityList',
+        // },
+        // {
+        // aname:'用户组列表',
+        //  path:'echars'
+        // },
+        // {
+        // aname:'菜单规则',
+        // path:'AuthoUserList'
+        // }
 
-        ]
-        },
+        // ]
+        // },
         {
         name:'会员管理',
-        id:2,
+        id:1,
          
         children:[
           {
@@ -140,64 +140,64 @@ export default {
         ]
 
       },
-       {
-        name:'漫画管理',
-        id:3,
-        children:[
-          {
-        aname:'Banner管理',
-        path:'Banner'
-        },
-        {
-        aname:'首页栏目管理',
-        path:'HomeOne'
-        },
-        {
-        aname:'栏目广告',
-        path:'Advertising'
-        },
-{
-        aname:'首页推荐',
-        path:'HomeRecommend'
-        },
-        {
-        aname:'章节费用配置',
-        path:'ChapterCost'
-        },
-        {
-        aname:'签到推送',
-        path:'SignPush'
-        },
-{
-        aname:'推送配置',
-        path:'SignSetting'
-        },
-        {
-        aname:'全局弹窗',
-        path:'GlobalPopup'
-        },
-        {
-        aname:'书架管理',
-        path:'BookManagement'
-        },
-{
-        aname:'漫画分类',
-        path:'Cartonclassify'
-        },
-        {
-        aname:'漫画列表',
-        path:'CartonList'
-        },
-{
-        aname:'推广计划',
-        path:'PopularizationPlan'
-        }
+//        {
+//         name:'漫画管理',
+//         id:3,
+//         children:[
+//           {
+//         aname:'Banner管理',
+//         path:'Banner'
+//         },
+//         {
+//         aname:'首页栏目管理',
+//         path:'HomeOne'
+//         },
+//         {
+//         aname:'栏目广告',
+//         path:'Advertising'
+//         },
+// {
+//         aname:'首页推荐',
+//         path:'HomeRecommend'
+//         },
+//         {
+//         aname:'章节费用配置',
+//         path:'ChapterCost'
+//         },
+//         {
+//         aname:'签到推送',
+//         path:'SignPush'
+//         },
+// {
+//         aname:'推送配置',
+//         path:'SignSetting'
+//         },
+//         {
+//         aname:'全局弹窗',
+//         path:'GlobalPopup'
+//         },
+//         {
+//         aname:'书架管理',
+//         path:'BookManagement'
+//         },
+// {
+//         aname:'漫画分类',
+//         path:'Cartonclassify'
+//         },
+//         {
+//         aname:'漫画列表',
+//         path:'CartonList'
+//         },
+// {
+//         aname:'推广计划',
+//         path:'PopularizationPlan'
+//         }
 
-        ]
-      },
+//         ]
+//       },
       {
         name:'财务统计',
-        id:4,
+        id:2,
          
         children:[
           {
@@ -223,7 +223,7 @@ export default {
       }
       ,{
         name:'日志管理',
-        id:5,
+        id:3,
         children:[
           {
           aname:'管理员日志',

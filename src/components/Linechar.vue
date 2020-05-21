@@ -87,7 +87,7 @@ export default {
           itemWidth: 14,
           itemHeight: 5,
           itemGap: 13,
-          data: ['今日新增', '头条', '广点通','oppo','其他'],//折线图上面的小图标点击可隐藏该
+          data: ['今日新增', '头条', '广点通','oppo','其他'],//折线图上面的小线段点击可隐藏该项
           right: '44%',
           textStyle: {
             fontSize: 12,

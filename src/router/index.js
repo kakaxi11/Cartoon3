@@ -140,16 +140,16 @@ const router = new VueRouter({
         ]
     })
     // 挂载路由导航守卫
-    // router.beforeEach((to, from, next) => {
-    //   //to表示要访问的路径
-    //   //from表示从哪个路径跳转而来
-    //   //next()是一个函数表示放行
-    //   //next() 放行next('/login') 强制跳转
-    //   if (to.path === '/login') return next()
-    //   //如果不是登录页面,则先获取token,若没有则跳回login页面。
-    //   const tokenStr = window.sessionStorage.getItem('token')
-    //   if (!tokenStr) return next('/login')
-    //   next()
-    // })
+    router.beforeEach((to, from, next) => {
+      //to表示要访问的路径
+      //from表示从哪个路径跳转而来
+      //next()是一个函数表示放行
+      //next() 放行next('/login') 强制跳转
+      if (to.path === '/login') return next()
+      //如果不是登录页面,则先获取token,若没有则跳回login页面。
+      const tokenStr = window.sessionStorage.getItem('token')
+      if (!tokenStr) return next('/login')
+      next()
+    })
 
 export default router

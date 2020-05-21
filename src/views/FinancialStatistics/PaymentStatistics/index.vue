@@ -31,40 +31,6 @@
   <el-col :span="6"><div class="bg">总充值</div></el-col>
 </el-row>
 
-    <el-row :gutter="20">
-  <el-col :span="6"><div class="grid-content bg-blue">
-    
-       <div >
-<!-- 取消Lineheight -->
-   <p>app充值</p>
-    <!-- 请求时出现了报错的问题，把请求变为获取单个对象而不是嵌套对象时报错消失 -->
- <i>充值金额:</i> {{payTotal.sum}}
-<i>完成订单数:</i>{{payTotal.count}}
-   </div>
-      </div></el-col>
-  <el-col :span="6"><div class="grid-content bg-aqua">
-         <div >
-<!-- 取消Lineheight -->
-   <p>app充值</p>
- <i>充值金额:</i> {{payTotal.sum}}
-<i>完成订单数:</i>{{payTotal.count}}
-   </div>
-      </div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple">  
-     <div >
-<!-- 取消Lineheight -->
-   <p>app充值</p>
- <i>充值金额:</i> {{payTotal.sum}}
-<i>完成订单数:</i>{{payTotal.count}}
-   </div></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-green">  
-   <div >
-<!-- 取消Lineheight -->
-   <p>app充值</p>
- <i>充值金额:</i> {{payTotal.sum}}
-<i>完成订单数:</i>{{payTotal.count}}
-   </div></div></el-col>
-</el-row>
   <el-row :gutter="20">
   <el-col :span="6"><div class="grid-content bg-blue">
    <div >
